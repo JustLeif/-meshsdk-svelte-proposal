@@ -50,30 +50,11 @@
 >
 	{#if wallet === undefined && walletList.length > 0}
 		{#each walletList as enabledWallet}
-			<button
-				class="mesh-flex mesh-h-16 mesh-cursor-pointer mesh-items-center mesh-px-4 mesh-py-2 mesh-opacity-80 hover:mesh-opacity-100"
-				onclick={() => connectWallet(enabledWallet)}
-			>
-				{#if enabledWallet.icon}
-					<img
-						alt={enabledWallet.name + ' wallet icon'}
-						class="mesh-m-1 mesh-h-8 mesh-pr-2"
-						src={enabledWallet.icon}
-					/>
-				{/if}
-				<span
-					class="mesh-mr-menu-item mesh-text-xl mesh-font-normal mesh-text-gray-700 hover:mesh-text-black"
-				>
-					{label
-						.split(' ')
-						.map((word: string) => {
-							return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-						})
-						.join(' ')}
-				</span>
-			</button>
+			{@render menuItem(enabledWallet.icon, () => connectWallet(enabledWallet), enabledWallet.name)}
 		{/each}
-	{/if}
+	{:else if wallet === undefined && walletList.length === 0}
+		<span>No Wallet Found</span>
+	{:else}{/if}
 	<!-- {!connected && wallets.length > 0 ? (
 			<>
 				{wallets.map((wallet, index) => (
@@ -112,3 +93,24 @@
 		)} -->
 	<!-- </div> -->
 </div>
+
+{#snippet menuItem(icon: string, onclick: () => void, name: string)}
+	<button
+		class="mesh-flex mesh-h-16 mesh-cursor-pointer mesh-items-center mesh-px-4 mesh-py-2 mesh-opacity-80 hover:mesh-opacity-100"
+		{onclick}
+	>
+		{#if icon}
+			<img alt={name + ' wallet icon'} class="mesh-m-1 mesh-h-8 mesh-pr-2" src={icon} />
+		{/if}
+		<span
+			class="mesh-mr-menu-item mesh-text-xl mesh-font-normal mesh-text-gray-700 hover:mesh-text-black"
+		>
+			{name
+				.split(' ')
+				.map((word: string) => {
+					return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+				})
+				.join(' ')}
+		</span>
+	</button>
+{/snippet}
