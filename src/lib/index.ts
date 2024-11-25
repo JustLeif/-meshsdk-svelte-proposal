@@ -1,3 +1,3 @@
-export * from './browser-wallet-state.svelte.js';
-export * from './sdk.svelte.js';
-export * from './button.svelte';
+export * from './browser-wallet-state.svelte';
+export * from './sdk.svelte';
+export * from './connect-wallet.svelte';

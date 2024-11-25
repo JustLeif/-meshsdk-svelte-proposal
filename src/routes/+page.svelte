@@ -13,4 +13,4 @@
 	});
 </script>
 
-<ConnectWallet label="Hello!"></ConnectWallet>
+<ConnectWallet></ConnectWallet>

@@ -1,8 +1,6 @@
 import { type BrowserWallet, type Wallet } from '@meshsdk/core';
 import { MeshSdkState } from '$lib/sdk.svelte.js';
 
-const { meshSdk } = MeshSdkState;
-
 let wallet: BrowserWallet | undefined = $state();
 let walletName: string | undefined = $state();
 
@@ -14,8 +12,8 @@ export const BrowserWalletState = {
 		return walletName;
 	},
 	async connectWallet(w: Wallet) {
-		if (meshSdk) {
-			wallet = await meshSdk.BrowserWallet.enable(w.id);
+		if (MeshSdkState.meshSdk) {
+			wallet = await MeshSdkState.meshSdk.BrowserWallet.enable(w.id);
 			walletName = w.name
 				.split(' ')
 				.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
