@@ -32,7 +32,9 @@
 		class={`mesh-mr-menu-list mesh-flex mesh-w-60 mesh-items-center mesh-justify-center mesh-rounded-t-md mesh-border mesh-px-4 mesh-py-2 mesh-text-lg mesh-font-normal mesh-shadow-sm ${isDark ? `mesh-bg-neutral-950 mesh-text-neutral-50` : `mesh-bg-neutral-50 mesh-text-neutral-950`}`}
 		onclick={() => (hideMenuList = !hideMenuList)}
 	>
-		{#if BrowserWalletState.connecting}
+		{#if MeshSdkState.meshSdk === undefined}
+			Loading...
+		{:else if BrowserWalletState.connecting}
 			Connecting...
 		{:else if BrowserWalletState.browserWallet === undefined}
 			{label}
